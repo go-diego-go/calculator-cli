@@ -8,6 +8,28 @@ def test_fraction_strings():
     # TODO: add more scenarios
 
 
+def test_fraction_dict():
+    assert Fraction.extract_from_dict(
+        {"sign": "", "whole_number": "", "numerator": "1", "denominator": "2"}
+    ) == (1, 2)
+    assert Fraction.extract_from_dict(
+        {"sign": "", "whole_number": "3", "numerator": "1", "denominator": "2"}
+    ) == (7, 2)
+    assert Fraction.extract_from_dict(
+        {"sign": "", "whole_number": "3", "numerator": "", "denominator": ""}
+    ) == (3, 1)
+
+    assert Fraction.extract_from_dict(
+        {"sign": "-", "whole_number": "", "numerator": "1", "denominator": "2"}
+    ) == (-1, 2)
+    assert Fraction.extract_from_dict(
+        {"sign": "-", "whole_number": "3", "numerator": "1", "denominator": "2"}
+    ) == (-7, 2)
+    assert Fraction.extract_from_dict(
+        {"sign": "-", "whole_number": "3", "numerator": "", "denominator": ""}
+    ) == (-3, 1)
+
+
 def test_fraction_add():
     assert str(Fraction("1", "2") + Fraction("1", "2")) == "1"
     # TODO: add more scenarios

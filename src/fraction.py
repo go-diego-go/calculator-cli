@@ -1,15 +1,41 @@
+from typing import Dict, Tuple
+
+
 class Fraction:
-    def __init__(self, numerator, denominator):
-        self.numerator = int(numerator)
-        self.denominator = int(denominator)
+    def __init__(self, numerator="0", denominator="1", elements={}):
+        if elements:
+            self.numerator, self.denominator = Fraction.extract_from_dict(elements)
+        else:
+            self.numerator = int(numerator)
+            self.denominator = int(denominator)
 
     @staticmethod
-    def gcf(a, b):
+    def extract_from_dict(elements: Dict) -> Tuple:
+        whole_number = int(elements["whole_number"] or "0")
+        numerator = int(elements["numerator"] or "0")
+        denominator = int(elements["denominator"] or "1")
+
+        # Whole number (e.g. 3)
+        if not numerator:
+            numerator = whole_number
+
+        # Mixed number (e.g. 3_1/2)
+        elif whole_number:
+            numerator = whole_number * denominator + numerator
+
+        if elements["sign"] == "-":
+            numerator *= -1
+
+        # Regular fractions (e.g. 1/2) are implicitly covered
+        return numerator, denominator
+
+    @staticmethod
+    def gcf(a, b) -> int:
         while b != 0:
             a, b = b, (a % b)
         return a
 
-    def lcd(self, other):
+    def lcd(self, other) -> int:
         return (self.denominator * other.denominator) / self.gcf(
             abs(other.numerator), other.denominator
         )
@@ -39,7 +65,9 @@ class Fraction:
     def __truediv__(self, other):
         return self * Fraction(other.denominator, other.numerator)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        # This approach favors mixed numbers over improper fractions
+
         sign = "-" if self.numerator < 0 else ""
 
         abs_numerator = abs(self.numerator)
@@ -53,3 +81,6 @@ class Fraction:
             fraction = f"{abs_numerator}/{self.denominator}"
 
         return f"{sign}{whole_number}{fraction}"
+
+    def __repr__(self) -> str:
+        return f"Fraction('{self.numerator}', '{self.denominator}')"
