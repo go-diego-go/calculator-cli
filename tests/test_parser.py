@@ -1,7 +1,9 @@
-from src.parser import Parser
+from pytest import raises
+
+from src.parser import Parser, FractionElements
 
 
-def test_valid_inputs():
+def test_valid_inputs() -> None:
     # TODO: Use list to slightly reduce the amount of code duplication
     assert Parser.parse_input("1 + 2") == {
         "first_operand": "1",
@@ -65,7 +67,7 @@ def test_valid_inputs():
     }
 
 
-def test_invalid_inputs():
+def test_invalid_inputs() -> None:
     test_inputs = [
         "bla",
         "1 + a",
@@ -82,22 +84,45 @@ def test_invalid_inputs():
         " 1 + 2 ",
     ]
     for input in test_inputs:
-        assert Parser.parse_input(input) is None
+        with raises(ValueError) as excinfo:
+            Parser.parse_input(input)
+        assert str(excinfo.value) == "Received an invalid input. Please try again."
 
 
-def test_valid_fractions():
+def test_valid_fractions() -> None:
     test_inputs = (
-        ("1/2", {"sign": "", "whole_number": "", "numerator": "1", "denominator": "2"}),
+        (
+            "1/2",
+            FractionElements(sign="", whole_number="", numerator="1", denominator="2"),
+        ),
+        (
+            "1870/2",
+            FractionElements(
+                sign="", whole_number="", numerator="1870", denominator="2"
+            ),
+        ),
         (
             "1_2/3",
-            {"sign": "", "whole_number": "1", "numerator": "2", "denominator": "3"},
+            FractionElements(sign="", whole_number="1", numerator="2", denominator="3"),
+        ),
+        (
+            "-10_4/81",
+            FractionElements(
+                sign="-", whole_number="10", numerator="4", denominator="81"
+            ),
         ),
         (
             "-5/6",
-            {"sign": "-", "whole_number": "", "numerator": "5", "denominator": "6"},
+            FractionElements(sign="-", whole_number="", numerator="5", denominator="6"),
         ),
-        ("0", {"sign": "", "whole_number": "0", "numerator": "", "denominator": ""}),
+        (
+            "0",
+            FractionElements(sign="", whole_number="0", numerator="", denominator=""),
+        ),
+        (
+            "-5",
+            FractionElements(sign="-", whole_number="5", numerator="", denominator=""),
+        ),
     )
-    # TODO: Add more scenarios
     for input, output in test_inputs:
         assert Parser.parse_fraction(input) == output

@@ -1,14 +1,14 @@
 from src.fraction import Fraction
 
 
-def test_fraction_strings():
+def test_fraction_strings() -> None:
     assert str(Fraction("-1", "2")) == "-1/2"
     assert str(Fraction("4", "2")) == "2"
     assert str(Fraction("-10", "9")) == "-1_1/9"
     # TODO: add more scenarios
 
 
-def test_fraction_dict():
+def test_fraction_dict() -> None:
     assert Fraction.extract_from_dict(
         {"sign": "", "whole_number": "", "numerator": "1", "denominator": "2"}
     ) == (1, 2)
@@ -30,21 +30,21 @@ def test_fraction_dict():
     ) == (-3, 1)
 
 
-def test_fraction_add():
+def test_fraction_add() -> None:
     assert str(Fraction("1", "2") + Fraction("1", "2")) == "1"
     # TODO: add more scenarios
 
 
-def test_fraction_sub():
+def test_fraction_sub() -> None:
     assert str(Fraction("1", "2") - Fraction("3", "4")) == "-1/4"
     # TODO: add more scenarios
 
 
-def test_fraction_mul():
+def test_fraction_mul() -> None:
     assert str(Fraction("1", "2") * Fraction("3", "4")) == "3/8"
     # TODO: add more scenarios
 
 
-def test_fraction_div():
+def test_fraction_div() -> None:
     assert str(Fraction("1", "2") / Fraction("6", "5")) == "5/12"
     # TODO: add more scenarios

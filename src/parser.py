@@ -1,6 +1,8 @@
 import re
-from typing import Union, Dict
+from typing import Tuple
 
+from .fraction import Fraction
+from .types import InputElements, FractionElements
 
 WHOLE_NUMBER = r"0|-?(?:[1-9]\d*_?)?"
 FRACTION_ELEMENT = r"[1-9]\d*"
@@ -29,18 +31,37 @@ FRACTION_PARSER = re.compile(
 
 class Parser:
     @staticmethod
-    def parse_input(input: str) -> Union[None, Dict]:
+    def build_operation(input: str) -> Tuple[Fraction, str, Fraction]:
+        elements: InputElements = Parser.parse_input(input)
+
+        first_operand = Fraction(
+            elements=Parser.parse_fraction(elements["first_operand"])
+        )
+        second_operand = Fraction(
+            elements=Parser.parse_fraction(elements["second_operand"])
+        )
+
+        return first_operand, elements["operator"], second_operand
+
+    @staticmethod
+    def parse_input(input: str) -> InputElements:
         matches = INPUT_PARSER.match(input)
 
         if not matches:
-            return None
+            raise ValueError("Received an invalid input. Please try again.")
 
-        return matches.groupdict()
+        return InputElements(
+            first_operand=matches.group("first_operand"),
+            operator=matches.group("operator"),
+            second_operand=matches.group("second_operand"),
+        )
 
     @staticmethod
-    def parse_fraction(input: str) -> Union[None, Dict]:
+    def parse_fraction(input: str) -> FractionElements:
         # TODO: this approach is uglier, try to use regex if possible
-        result = {"sign": "", "whole_number": "", "numerator": "", "denominator": ""}
+        result = FractionElements(
+            sign="", whole_number="", numerator="", denominator=""
+        )
 
         if input[0] == "-":
             result["sign"] = input[0]
