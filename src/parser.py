@@ -19,14 +19,6 @@ INPUT_PARSER = re.compile(
         f"(?P<second_operand>{OPERAND}$"
     )
 )
-FRACTION_PARSER = re.compile(
-    (
-        f"^(?P<whole_number>{WHOLE_NUMBER})"
-        f"(?P<numerator>{FRACTION_ELEMENT})?"
-        r"(?:\/?)"
-        fr"(?P<denominator>({FRACTION_ELEMENT})?)$"
-    )
-)
 
 
 class Parser:
@@ -58,7 +50,6 @@ class Parser:
 
     @staticmethod
     def parse_fraction(input: str) -> FractionElements:
-        # TODO: this approach is uglier, try to use regex if possible
         result = FractionElements(
             sign="", whole_number="", numerator="", denominator=""
         )
