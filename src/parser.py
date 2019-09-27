@@ -1,8 +1,8 @@
 import re
 from typing import Tuple
 
-from .fraction import Fraction
-from .types import InputElements, FractionElements
+from src.fraction import Fraction
+from src.dict_types import InputElements, FractionElements
 
 WHOLE_NUMBER = r"0|-?(?:[1-9]\d*_?)?"
 FRACTION_ELEMENT = r"[1-9]\d*"
@@ -48,7 +48,7 @@ class Parser:
         matches = INPUT_PARSER.match(input)
 
         if not matches:
-            raise ValueError("Received an invalid input. Please try again.")
+            raise ValueError("Invalid input. Please try again.")
 
         return InputElements(
             first_operand=matches.group("first_operand"),

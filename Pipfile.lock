@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "51e0d43c23756946c529a0d79e4d9cedb1bd29c1651224b7c940295d5c258afa"
+            "sha256": "5eabbcf4c1ba8612ee4dc46dc9e3f340ed139270e1cd5ac3e1d22959f2074fd6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,10 @@
         ]
     },
     "default": {
+        "calculator": {
+            "editable": true,
+            "path": "."
+        },
         "click": {
             "hashes": [
                 "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",

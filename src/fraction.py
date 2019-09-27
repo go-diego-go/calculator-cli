@@ -1,6 +1,6 @@
 from typing import Tuple, Union
 
-from .types import FractionElements
+from src.dict_types import FractionElements
 
 
 class Fraction:

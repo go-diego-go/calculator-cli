@@ -1,6 +1,6 @@
 import operator
 
-from .parser import Parser
+from src.parser import Parser
 
 
 OPERATIONS = {

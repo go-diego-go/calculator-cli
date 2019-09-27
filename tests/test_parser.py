@@ -86,7 +86,7 @@ def test_invalid_inputs() -> None:
     for input in test_inputs:
         with raises(ValueError) as excinfo:
             Parser.parse_input(input)
-        assert str(excinfo.value) == "Received an invalid input. Please try again."
+        assert str(excinfo.value) == "Invalid input. Please try again."
 
 
 def test_valid_fractions() -> None:
