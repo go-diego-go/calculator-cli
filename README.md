@@ -34,4 +34,5 @@ It supports improper fractions, mixed numbers and whole numbers.
 
 ## Development
 
+* Install dev dependencies `make dev`
 * Run test scripts with `make qa`

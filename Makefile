@@ -10,3 +10,5 @@ format:
 	pipenv run format
 typecheck:
 	pipenv run typecheck
+dev:
+	pipenv install --dev
