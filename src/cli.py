@@ -18,7 +18,7 @@ def calculator() -> None:
     while True:
         input = click.prompt(click.style("?", fg="green"))
         try:
-            click.echo(click.style(Solver.run(input), fg="yellow"))
+            click.echo(click.style("= ", fg="blue") + click.style(Solver.run(input), fg="yellow"))
         except ValueError as excinfo:
             click.echo(click.style(str(excinfo), fg="red"))
 
