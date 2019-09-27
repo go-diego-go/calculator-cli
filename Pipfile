@@ -20,6 +20,8 @@ python_version = "3.7"
 [scripts]
 format = "black ."
 lint = "flake8 ."
+test = "pytest"
+typecheck = "mypy ."
 
 [pipenv]
 allow_prereleases = true
