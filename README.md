@@ -22,3 +22,12 @@ It supports improper fractions, mixed numbers and whole numbers.
 
 = 3_1/2
 ```
+
+## Installation
+
+* `brew install pipenv` 
+* `make install`
+
+## Execution
+
+* `calculator`
