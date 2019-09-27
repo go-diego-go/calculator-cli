@@ -31,3 +31,7 @@ It supports improper fractions, mixed numbers and whole numbers.
 ## Execution
 
 * `calculator`
+
+## Development
+
+* Run test scripts with `make qa`

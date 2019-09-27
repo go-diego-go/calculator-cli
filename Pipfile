@@ -20,7 +20,7 @@ python_version = "3.7"
 [scripts]
 format = "black ."
 lint = "flake8 ."
-test = "pytest"
+test = "pytest -v"
 typecheck = "mypy ."
 
 [pipenv]
