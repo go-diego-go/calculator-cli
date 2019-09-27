@@ -8,11 +8,11 @@ flake8 = "*"
 pytest = "*"
 black = "*"
 mypy = "*"
-mypy-extensions = "*"
 
 [packages]
 click = "*"
 calculator = {editable = true,path = "."}
+mypy-extensions = "*"
 
 [requires]
 python_version = "3.7"
