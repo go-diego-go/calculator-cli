@@ -42,12 +42,6 @@ class Fraction:
             a, b = b, (a % b)
         return a
 
-    def lcd(self, other: "Fraction") -> int:
-        return int(
-            (self.denominator * other.denominator)
-            / self.gcf(abs(other.numerator), other.denominator)
-        )
-
     def lowest_terms(self) -> "Fraction":
         gcf = Fraction.gcf(abs(self.numerator), self.denominator)
 

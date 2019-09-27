@@ -1,74 +1,66 @@
 from pytest import raises
 
-from src.parser import Parser, FractionElements
+from src.parser import Parser
+from src.dict_types import FractionElements, InputElements
 
 
 def test_valid_inputs() -> None:
-    # TODO: Use list to slightly reduce the amount of code duplication
-    assert Parser.parse_input("1 + 2") == {
-        "first_operand": "1",
-        "operator": "+",
-        "second_operand": "2",
-    }
-    assert Parser.parse_input("1/2 * 8/5") == {
-        "first_operand": "1/2",
-        "operator": "*",
-        "second_operand": "8/5",
-    }
-    assert Parser.parse_input("3/4 - 2/2") == {
-        "first_operand": "3/4",
-        "operator": "-",
-        "second_operand": "2/2",
-    }
-    assert Parser.parse_input("1     +        5") == {
-        "first_operand": "1",
-        "operator": "+",
-        "second_operand": "5",
-    }
-    assert Parser.parse_input("7/6 / -5/6") == {
-        "first_operand": "7/6",
-        "operator": "/",
-        "second_operand": "-5/6",
-    }
-    assert Parser.parse_input("12312321/12312312 + 1/1111111") == {
-        "first_operand": "12312321/12312312",
-        "operator": "+",
-        "second_operand": "1/1111111",
-    }
-    assert Parser.parse_input("10/2 - 1/5") == {
-        "first_operand": "10/2",
-        "operator": "-",
-        "second_operand": "1/5",
-    }
-    assert Parser.parse_input("1010 / 210") == {
-        "first_operand": "1010",
-        "operator": "/",
-        "second_operand": "210",
-    }
-    assert Parser.parse_input("-80320  *   90/90") == {
-        "first_operand": "-80320",
-        "operator": "*",
-        "second_operand": "90/90",
-    }
-    assert Parser.parse_input("2_3/8 + 9/8") == {
-        "first_operand": "2_3/8",
-        "operator": "+",
-        "second_operand": "9/8",
-    }
-    assert Parser.parse_input("10_3/2 * 1_2/10") == {
-        "first_operand": "10_3/2",
-        "operator": "*",
-        "second_operand": "1_2/10",
-    }
-    assert Parser.parse_input("1 - 0") == {
-        "first_operand": "1",
-        "operator": "-",
-        "second_operand": "0",
-    }
+    test_inputs = (
+        ("1 + 2", InputElements(first_operand="1", operator="+", second_operand="2")),
+        (
+            "1/2 * 8/5",
+            InputElements(first_operand="1/2", operator="*", second_operand="8/5"),
+        ),
+        (
+            "3/4 - 2/2",
+            InputElements(first_operand="3/4", operator="-", second_operand="2/2"),
+        ),
+        (
+            "1     +        5",
+            InputElements(first_operand="1", operator="+", second_operand="5"),
+        ),
+        (
+            "7/6 / -5/6",
+            InputElements(first_operand="7/6", operator="/", second_operand="-5/6"),
+        ),
+        (
+            "12312321/12312312 + 1/1111111",
+            InputElements(
+                first_operand="12312321/12312312",
+                operator="+",
+                second_operand="1/1111111",
+            ),
+        ),
+        (
+            "10/2 - 1/5",
+            InputElements(first_operand="10/2", operator="-", second_operand="1/5"),
+        ),
+        (
+            "1010 / 210",
+            InputElements(first_operand="1010", operator="/", second_operand="210"),
+        ),
+        (
+            "-80320  *   90/90",
+            InputElements(first_operand="-80320", operator="*", second_operand="90/90"),
+        ),
+        (
+            "2_3/8 + 9/8",
+            InputElements(first_operand="2_3/8", operator="+", second_operand="9/8"),
+        ),
+        (
+            "10_3/2 * 1_2/10",
+            InputElements(
+                first_operand="10_3/2", operator="*", second_operand="1_2/10"
+            ),
+        ),
+        ("1 - 0", InputElements(first_operand="1", operator="-", second_operand="0")),
+    )
+    for input, output in test_inputs:
+        assert Parser.parse_input(input) == output
 
 
 def test_invalid_inputs() -> None:
-    test_inputs = [
+    test_inputs = (
         "bla",
         "1 + a",
         "--1/2 + 1",
@@ -82,7 +74,7 @@ def test_invalid_inputs() -> None:
         "8/4/-7/9" "3 ++ 2",
         "2_1/5 x 8/10",
         " 1 + 2 ",
-    ]
+    )
     for input in test_inputs:
         with raises(ValueError) as excinfo:
             Parser.parse_input(input)

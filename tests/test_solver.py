@@ -1,7 +1,7 @@
 from src.solver import Solver
 
 
-def test_runr() -> None:
+def test_run() -> None:
     assert Solver.run("1/2 + 3/4") == "1_1/4"
     assert Solver.run("1 + 0") == "1"
     assert Solver.run("3_1/2 * 3") == "10_1/2"

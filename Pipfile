@@ -8,6 +8,7 @@ flake8 = "*"
 pytest = "*"
 black = "*"
 mypy = "*"
+pytest-cov = "*"
 
 [packages]
 click = "*"
@@ -20,7 +21,7 @@ python_version = "3.7"
 [scripts]
 format = "black ."
 lint = "flake8 ."
-test = "pytest -v"
+test = "pytest -v --cov-report html --cov-report term-missing:skip-covered --cov=src"
 typecheck = "mypy ."
 
 [pipenv]
